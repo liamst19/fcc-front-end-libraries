@@ -1,45 +1,48 @@
 import React, { useState, useEffect } from 'react'
 import getRandomQuote from '../services/quotes'
 
-const QuoteBox = props => {
-  const [ quote, setQuote ] = useState({
-    text: 'text',
-    author: 'author'
-  });
+// Stylesheet
+import './QuoteBox.css'
 
-  const handleClick = e => {
-    console.log(quote.id)
-    setQuote(getRandomQuote(quote.id));
-  }
+const QuoteBox = props => {
+
+  const [ quote, setQuote ] = useState({
+    text: '',
+    author: ''
+  });
 
   useEffect(() => {
     setQuote(getRandomQuote())
-  }, [])
+  }, []);
 
-  const cardStyle = {
-    margin: '4em auto',
-    fontSize: '20px'
+  const handleClick = e => {
+    setQuote(getRandomQuote(quote.id));
   }
 
-  return (<div id="quote-box" className="card w-75" style={ cardStyle } >
-              <div id="quote-buttons" className="card-header">
+  return (<div id="quote-box" className="jumbotron">
+            <div className="container">
+              <div id="quote-buttons">
                 <div className="row">
-                  <div className="col-md-4 text-left">
-                    <a id="tweet-quote" href={`https://twitter.com/intent/tweet?text="${quote.text}" - ${quote.author}`}><i className="fa fa-twitter"></i></a>
+                  <div className="col-md-6 text-left">
+                    <a id="tweet-quote"
+                       href={`https://twitter.com/intent/tweet?text="${quote.text}" - ${quote.author}`}>
+          <i className="fa fa-twitter"></i>
+                    </a>
                 </div>
-                  <div className="col-md-4 ml-md-auto text-right">
-                    <button id="new-quote" className="btn-md" onClick={handleClick}>New Quote</button>
+                  <div className="col-md-6 ml-md-auto text-right">
+                    <button id="new-quote" className="btn btn-primary" onClick={handleClick}>New Quote</button>
                 </div>
                 </div>
               </div>
-              <div className="card-body">
-                <div id="quote-text" className="card-text text-center display-4">
-                  <span id="text">{quote.text}</span>
+              <div>
+                <div id="quote-text" className="text-center display-4">
+                  <q id="text">{quote.text}</q>
                 </div>
-                <div id="quote-author" className="card-text text-right">
+                <div id="quote-author" className="text-right">
                   <span id="author">&mdash; {quote.author}</span>
                 </div>
               </div>
+            </div>
           </div>);
 }
 

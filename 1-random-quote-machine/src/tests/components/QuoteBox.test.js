@@ -5,7 +5,7 @@ import { render } from '@testing-library/react'
 import { act } from 'react-dom/test-utils'
 import { fireEvent, prettyDOM } from '@testing-library/dom'
 import '@testing-library/jest-dom/extend-expect'
-import QuoteBox from './QuoteBox'
+import QuoteBox from '../../components/QuoteBox'
 
 describe('QuoteBox component', () => {
 
