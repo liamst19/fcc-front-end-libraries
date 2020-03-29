@@ -8,11 +8,12 @@ import Editor from './components/Editor';
 // Reducers
 import { initializeText, updateText } from './reducers/textReducer';
 
-const SAMPLETEXT = `# Markdown Preview
+const SAMPLETEXT = `# Header 1
 ## Header 2
 - [Link to Google](https://www.google.com/)
 - \`inline code block\`
-- ***image***: ![image](myimage.jpg "image")
+- ![image](myimage.jpg "image")
+- **bold text**
 - \`\`\`
 Block Code
 \`\`\`
@@ -31,7 +32,7 @@ const App = ({ text, initializeText, updateText })  => {
   }
 
   return (
-    <div className="App">
+    <div className="App container">
       <h1>Markdown Previewer</h1>
       <Editor text={text} onChange={ handleChange } />
       <Preview text={text} />

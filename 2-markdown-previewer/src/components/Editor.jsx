@@ -6,8 +6,8 @@ const Editor = props => {
     props.onChange(event.target.value);
   }
 
-  return (<div>
-            <textarea id="editor" value={props.text} onChange={ handleChange } />
+  return (<div className="form-group">
+            <textarea id="editor" className="form-control rounded-0" value={props.text} rows="10" onChange={ handleChange } />
           </div>)
 }
 
