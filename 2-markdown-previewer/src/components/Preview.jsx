@@ -1,5 +1,4 @@
-import React from 'react'
-import marked from 'marked'
+import React from 'react';
 
 import convertMarkdown from '../services/markdown';
 

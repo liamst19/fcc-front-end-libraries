@@ -9,7 +9,7 @@ const reducer = (state = '', action) => {
 }
 
 export const initializeText = text =>  dispatch => {
-  dispatch({
+  return dispatch({
     type: 'INIT',
     text: text
   });
