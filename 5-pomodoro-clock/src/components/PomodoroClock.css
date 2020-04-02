@@ -1,0 +1,29 @@
+
+#pomodoro-clock {
+    max-width: 40rem;
+    margin: 2rem auto;
+    text-align: center;
+    font-size: 2rem;
+}
+
+#time-control {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+}
+
+#time-control > div > button {
+    width: 4rem;
+    margin: 0 0.5rem;
+}
+
+#time-left {
+    font-size: 4rem;
+}
+
+#pomodoro-buttons {
+}
+
+#pomodoro-buttons > button {
+    width: 8rem;
+    margin: 0 0.5rem;
+}
