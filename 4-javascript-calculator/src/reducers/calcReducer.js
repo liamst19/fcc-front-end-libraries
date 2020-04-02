@@ -1,4 +1,15 @@
-import { arithOperation } from '../services/calculator'
+
+const PAD = 10000000000000000;
+export const arithOperation = {
+  '+': (a, b) => ((PAD * a) + (PAD * b)) / PAD,
+  '-': (a, b) => ((PAD * a) - (PAD * b)) / PAD,
+  '*': (a, b) => a * b,
+  '/': (a, b) => a / b
+}
+
+const OPRX = /^[-+*/]$/;
+const CHAR_LIM = 17;
+const PRECISION = 15;
 
 const DEFAULT_STATE = {
   operator: '',
@@ -6,15 +17,14 @@ const DEFAULT_STATE = {
   term2: ''
 }
 
+const doArithmetic = ({operator, term1, term2}) => {
+  return arithOperation[operator](term1, term2)
+    .toPrecision(PRECISION)
+    .replace(/(?:\.0+|(\.\d+?)0+)$/, "$1")
+    .slice(0, CHAR_LIM);
+}
+
 const appendChar = (state, char) => {
-
-  const OPRX = /^[-+*/]$/;
-
-  const doArith = ({operator, term1, term2}) => {
-    console.log('doing arith');
-    return arithOperation[operator](term1, term2)
-      .toPrecision(15).replace(/(?:\.0+|(\.\d+?)0+)$/, "$1");
-  }
 
   const appendToTerm = (term, char) => {
     return (
@@ -25,7 +35,7 @@ const appendChar = (state, char) => {
         : /\./.test(term) ? term : term.concat('.')
       // ---- numeric
       : term === '0' ? char : term.concat(char)
-    )
+    ).slice(0, CHAR_LIM)
   }
 
   const appendToOperator = (state, char) => {
@@ -41,13 +51,13 @@ const appendChar = (state, char) => {
       : {...state, operator: '-' } // replace operator
       // -- if there is term 2
       : state.term2 === '-' ? { ...state, term2: '' }
-        : { term1: doArith(state),
+        : { term1: doArithmetic(state),
           term2: '',
           operator: char }
       // char is not subtraction ----------
       : state.term2 ?
         state.term2 === '-' ? { ...state, term2: '', operator: char }
-        : { term1: doArith(state),
+        : { term1: doArithmetic(state),
                         term2: '',
                         operator: char }
       : state.term1 ? { ...state,
@@ -56,26 +66,32 @@ const appendChar = (state, char) => {
     )
   }
 
-  const newState =
-        // if equal sign calculate and reset
-        char === '=' ?
-        state.term1 && state.term2 && state.operator ?
-        {...DEFAULT_STATE, term1: doArith(state)}
-        : {DEFAULT_STATE, ...state}
-  // ---- if char is operator
-        : OPRX.test(char) ? appendToOperator(state, char)
-  // ---- if char is numeric or decimal
-        : OPRX.test(state.operator) ? // does state have an operator?
-        { ...state, term2: appendToTerm(state.term2, char)}
-        : { ...state, term1: appendToTerm(state.term1, char)};
-  return newState;
+  return (
+    // ---- if char is operator
+    OPRX.test(char) ? appendToOperator(state, char)
+    // ---- if char is numeric or decimal
+      : OPRX.test(state.operator) ? // does state have an operator?
+      { ...state, term2: appendToTerm(state.term2, char)}
+    : { ...state, term1: appendToTerm(state.term1, char)}
+  );
 }
+
+const calculateState = (state) => {
+  return (
+    state.term1 && state.term2 && state.operator ?
+      {...DEFAULT_STATE, term1: doArithmetic(state)}
+    : {DEFAULT_STATE, ...state}
+  );
+}
+
+// ------------------------------------------------------------
+// ------------------------------------------------------------
 
 const reducer = (state = DEFAULT_STATE, action) => {
   const switcher = {
     'CALC_CLEAR': () => DEFAULT_STATE,
     'CALC_APPEND': () => appendChar(state, action.char),
-    'CALC_CALCULATE': () => state.term1
+    'CALC_EVAL': () => calculateState(state)
   }
   return switcher.hasOwnProperty(action.type) ?
     switcher[action.type]() : state;
@@ -83,11 +99,12 @@ const reducer = (state = DEFAULT_STATE, action) => {
 
 export const pushKey = key => {
   return key === 'C' ? clearCalculator()
+    : key === '=' ? evalCalculator()
     : appendCalculator(key);
 }
 
-export const calculateStore = () => dispatch => dispatch({
-  type: 'CALC_CALCULATE'
+export const evalCalculator = () => dispatch => dispatch({
+  type: 'CALC_EVAL'
 });
 
 export const clearCalculator = () => dispatch => dispatch({
