@@ -1,6 +1,6 @@
 # freeCodeCamp Front-End Libraries Projects
 
-This repository contains a set of exercise project from freeCodeCamp's lessons on Front-End Libraries.
+This repository contains a set of exercise project from [freeCodeCamp's lessons on Front-End Libraries.](https://www.freecodecamp.org/learn/front-end-libraries/front-end-libraries-projects/)
 
 Built projects can be viewed from the following links:
 
