@@ -1,9 +1,30 @@
 
+h1{
+    color: #070;
+    padding: 0;
+    margin: 4rem auto 0 auto;
+    font-weight: bold;
+    line-height: 1em;
+    font-size: 4rem;
+    text-align: center;
+}
+
 #pomodoro-clock {
+    background: #D30;
+    color: #FFF;
+    font-weight: bold;
     max-width: 40rem;
-    margin: 2rem auto;
+    margin: 0 auto;
     text-align: center;
     font-size: 2rem;
+    border-radius: 15rem;
+    padding: 4rem;
+}
+
+button{
+    border-radius: 1.5rem;
+    background: #DDD;
+    font-size: 1.5rem;
 }
 
 #time-control {
@@ -12,7 +33,7 @@
 }
 
 #time-control > div > button {
-    width: 4rem;
+    width: 3rem;
     margin: 0 0.5rem;
 }
 
@@ -24,6 +45,6 @@
 }
 
 #pomodoro-buttons > button {
-    width: 8rem;
+    width: 6rem;
     margin: 0 0.5rem;
 }

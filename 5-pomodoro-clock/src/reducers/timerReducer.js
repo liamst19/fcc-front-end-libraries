@@ -1,52 +1,155 @@
 
 
-const MAX_MIN = 60;
+const MAX_MINUTES = 60;
+const TICK = 1;
+
+const DEFAULT_STATE = {
+  sessionLength: 25, // minutes
+  breakLength: 5,    // minutes
+  timeLeft: 25 * 60, // ms
+  timerId: null, // used to clear timer
+  timerLabel: 'Session',
+  ticking: false,
+}
 
 const tickTime = (time, tick) => {
   const newTime = time + tick;
-  return newTime > MAX_MIN ? MAX_MIN
+  return newTime > MAX_MINUTES ? MAX_MINUTES
     : newTime < 1 ? 1
     : newTime;
 }
 
-const DEFAULT_STATE = {
-  session: 25,
-  break: 5,
-  sessionTime: null,
-  breakTime: null,
-  timerLabel: 'Session'
-}
-
 const reducer = (state = DEFAULT_STATE, action) => {
-  const TICK = 1;
   const switcher = {
-    'SESSION_INCREMENT': () => ({ ...state, session: tickTime(state.session, TICK) }),
-    'SESSION_DECREMENT': () => ({ ...state, session: tickTime(state.session, -1 * TICK) }),
-    'BREAK_INCREMENT': () => ({ ...state, break: tickTime(state.break, TICK) }),
-    'BREAK_DECREMENT': () => ({ ...state, break: tickTime(state.break, -1 * TICK)}),
-    'SET_BREAK_TIME': () => ({...state, time: action.time}),
-    'SET_SESSION_TIME': () => ({...state, time: action.time}),
-    'RESET': () => DEFAULT_STATE
+    'SESSION_INCREMENT': () => {
+      const sessionLength = tickTime(state.sessionLength, TICK);
+      return ({
+      ...state,
+        sessionLength,
+        timeLeft: sessionLength * 60
+      });
+    },
+    'SESSION_DECREMENT': () => {
+      const sessionLength = tickTime(state.sessionLength, -1 * TICK);
+      return ({
+      ...state,
+        sessionLength,
+        timeLeft: sessionLength * 60
+      });
+    },
+    'BREAK_INCREMENT': () => ({
+      ...state,
+      breakLength: tickTime(state.breakLength, TICK)
+    }),
+    'BREAK_DECREMENT': () => ({
+      ...state,
+      breakLength: tickTime(state.breakLength, -1 * TICK)
+    }),
+    'START_SESSION': () =>{
+      return ({
+        ...state,
+        timerId: action.timer.id,
+        timerLabel: 'Session',
+        ticking: true
+      })
+    },
+    'START_BREAK': () =>{
+      return ({
+        ...state,
+        timerId: action.timer.id,
+        timeLeft: state.breakLength,
+        timerLabel: 'Break',
+      })
+    },
+    'START_TIMER': () => {
+      return {
+        ...state,
+        ticking: true
+      }
+    },
+    'PAUSE_TIMER': () => ({
+      ...state,
+      ticking: false,
+      timerId: null,
+    }),
+    'SWITCH_TIMER': () => {
+      const timerVal = state.timerLabel === 'Session' ?
+            {
+              timerLabel: 'Break',
+              timeLeft: state.breakLength * 60
+            }
+            : {
+              timerLabel: 'Session',
+              timeLeft: state.sessionLength * 60
+            }
+      return ({
+        ...state,
+        ...timerVal
+      })
+    },
+    'TICK_TIMER': () => {
+      const timeLeft = state.timeLeft - 1 < 0 ? -1
+            : state.timeLeft - 1;
+      return {
+        ...state,
+        timeLeft
+      }
+    },
+    'RESET': () => {
+      if(state.timerId) window.clearInterval(state.timerId);
+      return {
+        ...DEFAULT_STATE
+      };
+    }
   }
 
   return switcher.hasOwnProperty(action.type) ?
     switcher[action.type]() : state;
 }
 
-export const startSession = () => dispatch => {
-  console.log('starting session');
+
+export const switchTimer = () => dispatch => {
+  return dispatch({
+    type: 'SWITCH_TIMER'
+  });
 }
 
-export const pauseSession = () => dispatch => {
+export const tickTimer = () => dispatch => {
+  return dispatch({
+    type: 'TICK_TIMER'
+  });
+}
+
+export const startTimer = () => dispatch => {
+  return dispatch({
+    type: 'START_TIMER'
+  })
+}
+
+export const pauseTimer = () => dispatch => {
   console.log('pausing session');
+  return dispatch({
+    type: 'PAUSE_TIMER'
+  })
 }
 
-export const startBreak = () => dispatch => {
-  console.log('starting break');
+export const startSession = tid => dispatch => {
+  return dispatch({
+    type: 'START_SESSION',
+    timer: {
+      id: tid
+    }
+  })
 }
 
-export const pauseBreak = () => dispatch => {
-  console.log('pausing break');
+export const startBreak = timerId => dispatch => {
+  console.log('starting break', timerId);
+  return dispatch({
+    type: 'START_BREAK',
+    timer: {
+      id: timerId
+    }
+  })
 }
 
 export const reset = () => dispatch => dispatch({

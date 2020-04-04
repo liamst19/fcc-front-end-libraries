@@ -6,8 +6,8 @@ import './App.css'
 
 function App() {
   return (
-    <div className="App">
-      <h1>Pomodoro</h1>
+    <div>
+      <h1>PomODorO</h1>
       <PomodoroClock />
     </div>
   );
