@@ -1,8 +1,10 @@
 # freeCodeCamp Front-End Libraries Project 5: Pomodoro Clock
 
-https://www.freecodecamp.org/learn/front-end-libraries/front-end-libraries-projects/build-a-pomodoro-clock
+This is a exercise project from [freeCodeCamp's lessons on front-end libraries](https://www.freecodecamp.org/learn/front-end-libraries/front-end-libraries-projects/build-a-pomodoro-clock).
 
-## User Stories
+[The built project can be viewed from here.](https://liamst19.github.io/fcc-front-end-libraries/5-pomodoro-clock/)
+
+## Fulfillment Requirements
 
 - User Story #1: I can see an element with `id="break-label"` that contains a string (e.g. "Break Length").
 - User Story #2: I can see an element with `id="session-label"` that contains a string (e.g. "Session Length").

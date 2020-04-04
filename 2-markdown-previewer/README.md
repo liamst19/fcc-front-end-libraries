@@ -1,8 +1,10 @@
 # freeCodeCamp Front End Libraries Project #2: Markdown Previewer
 
-https://www.freecodecamp.org/learn/front-end-libraries/front-end-libraries-projects/build-a-markdown-previewer
+This is an [exercise project from freeCodeCamp's lessons on Front End Libraries](https://www.freecodecamp.org/learn/front-end-libraries/front-end-libraries-projects/build-a-markdown-previewer).
 
-## User Stories
+[The built project can be viewed from here.](https://liamst19.github.io/fcc-front-end-libraries/2-markdown-previewer/)
+
+## Fulfillment Requirements
 
 - User Story #1: I can see a `textarea` element with a corresponding `id="editor"`.
 - User Story #2: I can see an element with a corresponding `id="preview"`.

@@ -1,6 +1,10 @@
 # freeCodeCamp Font-End Libraries Project 3: Drum Machine
 
-## User Stories
+This is a exercise project from freeCodeCamp's lessons on front-end libraries.
+
+[The built project can be viewed from here.](https://liamst19.github.io/fcc-front-end-libraries/3-drum-machine/)
+
+## Fulfillment Requirements
 
 - User Story #1: I should be able to see an outer container with a corresponding `id="drum-machine"` that contains all other elements.
 - User Story #2: Within `#drum-machine` I can see an element with a corresponding `id="display"`.

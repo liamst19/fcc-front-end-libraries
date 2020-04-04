@@ -1,8 +1,10 @@
 # freeCodeCamp Front-End Libraries Project 4: Calculator
 
-https://www.freecodecamp.org/learn/front-end-libraries/front-end-libraries-projects/build-a-javascript-calculator
+This is a exercise project from [freeCodeCamp's lessons on front-end libraries](https://www.freecodecamp.org/learn/front-end-libraries/front-end-libraries-projects/build-a-javascript-calculator).
 
-## User Stories
+[The built project can be viewed from here.](https://liamst19.github.io/fcc-front-end-libraries/4-javascript-calculator/)
+
+## Fulfillment Requirements
 
 - User Story #1: My calculator should contain a clickable element containing an `=` (equal sign) with a corresponding `id="equals"`.
 - User Story #2: My calculator should contain 10 clickable elements containing one number each from 0-9, with the following corresponding IDs: `id="zero"`, `id="one"`, `id="two"`, `id="three"`, `id="four"`, `id="five"`, `id="six"`, `id="seven"`, `id="eight"`, and `id="nine"`.

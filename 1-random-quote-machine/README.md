@@ -1,6 +1,8 @@
-#FreeCodeCamp Random Quote Machine Exercise
+# freeCodeCamp Random Quote Machine Exercise
 
 This is an [exercise project from freeCodeCamp's lessons on Front End Libraries](https://www.freecodecamp.org/learn/front-end-libraries/front-end-libraries-projects/build-a-random-quote-machine).
+
+[The built project can be viewed from here.](https://liamst19.github.io/fcc-front-end-libraries/2-markdown-previewer/)
 
 ## Fulfillment Requirements:
 
